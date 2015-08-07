@@ -1,13 +1,20 @@
 <?php
 
-namespace Application;
+namespace Fx3costa;
 
+use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\ModuleManager\ModuleManager;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
 
-class Module
+class Module implements ConfigProviderInterface
 {
+    public function onBootstrap(MvcEvent $e)
+    {
+        $eventManager        = $e->getApplication()->getEventManager();
+        $moduleRouteListener = new ModuleRouteListener();
+        $moduleRouteListener->attach($eventManager);
+    }
 
     public function getConfig()
     {
@@ -17,6 +24,9 @@ class Module
     public function getAutoloaderConfig()
     {
         return array(
+            'Zend\Loader\ClassMapAutoloader' => array(
+                __DIR__ . '/autoload_classmap.php',
+            ),
             'Zend\Loader\StandardAutoloader' => array(
                 'namespaces' => array(
                     __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
@@ -34,7 +44,7 @@ class Module
     {
 
         return array(
-            'factories' => array(
+/*            'factories' => array(
                 'SONUser\Mail\Transport' => function($sm) {
                     $config = $sm->get('Config');
 
@@ -54,7 +64,7 @@ class Module
                     return new AuthAdapter($sm->get('Doctrine\ORM\EntityManager'));
                 }
 
-            )
+            )*/
         );
 
     }

@@ -7,7 +7,7 @@
  */
 return array(
     'modules' => array(
-        'Book',
+        'Blog',
         'Fx3costa',
         'ZFTool',
         'Application',
