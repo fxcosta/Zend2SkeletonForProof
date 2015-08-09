@@ -10,6 +10,6 @@ class Author extends AbstractService
     public function __construct(EntityManager $em)
     {
         parent::__construct($em);
-        $this->entity = "Book\Entity\Author";
+        $this->entity = "Book\\Entity\\Author";
     }
 }

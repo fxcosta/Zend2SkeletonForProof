@@ -4,6 +4,7 @@ namespace Fx3costa\Service;
 
 use Book\Entity\Configurator;
 use Doctrine\ORM\EntityManager;
+use Zend\Stdlib\Hydrator\ClassMethods;
 
 /**
  * Essa classe foi retirada dos projetos públicos do Wesley Willians
@@ -37,8 +38,10 @@ abstract class AbstractService
     public function update(array $data)
     {
         $entity = $this->em->getReference($this->entity, $data['id']);
-        $entity = Configurator::configure($entity, $data);
-        
+        $hydrator = new ClassMethods();
+        //$entity = Configurator::configure($entity, $data);
+        $entity = $hydrator->hydrate($data, $entity);
+
         $this->em->persist($entity);
         $this->em->flush();
         

@@ -18,12 +18,22 @@ return array(
     ),
     'router' => array(
         'routes' => array(
+            'book-forms' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/book/[:controller[/:action]][/:id]',
+                    'defaults' => array(
+                        'action' => 'index',
+                    ),
+                ),
+            ),
             'book-actions' => array(
                 'type' => 'Segment',
                 'options' => array(
                     'route' => '/book/[:controller[/:action][/page/:page]]',
                     'defaults' => array(
                         'action' => 'index',
+                        'controller' => 'authors',
                         'page' => 1
                     ),
                 ),

@@ -3,6 +3,9 @@
 namespace Book\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Zend\Form\Annotation\Hydrator;
+use Zend\Stdlib\Hydrator\ClassMethods;
+use Zend\Stdlib\Hydrator as Hy;
 
 /**
  * Author
@@ -13,10 +16,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Author
 {
-
     public function __construct($options = null)
     {
-        Configurator::configure($this, $options);
+        $hydrator = new ClassMethods(); // jeito certo de usar os getters e setters automaticos do doctrine
+        $hydrator->hydrate($options, $this);
+        //Configurator::configure($this, $options);
     }
 
     /**
@@ -91,6 +95,13 @@ class Author
         $this->email = $email;
     }
 
+    public function toArray()
+    {
+        return array('id' => $this->getId(),
+                    'name' => $this->getName(),
+                    'email' => $this->getEmail()
+        );
+    }
 
 }
 

@@ -1,7 +1,7 @@
 <?php
 namespace Book;
 
-use Book\Controller\AuthorController;
+use Book\Controller\AuthorController as AController;
 use Book\Service\Author;
 use Book\Service\TestService;
 use Zend\Mvc\ModuleRouteListener;
@@ -42,6 +42,13 @@ class Module
                 'Book\Service\TestService' => function($service) {
                     return new TestService("roxo");
                 },
+                'Book\Form\Author' => function($service) {
+                    $em = $service->get('Doctrine\ORM\EntityManager');
+                    $repository = $em->getRepository('Book\Entity\Category');
+                    $especialidades = $repository->fetchPairs();
+
+                    return new \Book\Form\Author($em, $especialidades, null);
+                },
             ),
         );
     }
@@ -62,7 +69,7 @@ class Module
                 'authors' => function ($sm) {
                     $locator = $sm->getServiceLocator();
                     $service = $locator->get('Book\Service\TestService');
-                    $controller = new AuthorController($service);
+                    $controller = new AController($service);
                     return $controller;
                 },
             ),

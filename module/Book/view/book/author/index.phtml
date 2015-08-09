@@ -1,7 +1,33 @@
-<?php
-    echo '<ul>';
-    foreach($this->data as $author) {
-        echo '<li>'.$author->getName().'</li>';
-    }
-    echo '</ul>';
-?>
+    <h1>Autores</h1>
+    <br />
+
+    <p>
+        <a href="<?php echo $this->url('book-actions', array('controller'=>'authors','action'=>'new')); ?>">Novo</a>
+    </p>
+
+    <table class="table">
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Ação</th>
+        </tr>
+
+        <?php foreach($this->data as $entity): ?>
+            <tr>
+                <td><?php echo $entity->getId(); ?></td>
+                <td><?php echo $entity->getName(); ?></td>
+                <td><?php echo $entity->getEmail(); ?></td>
+                <td>
+                    <a href="<?php echo $this->url('book-forms',
+                        array('controller'=>'authors','action'=>'edit','id' => $entity->getId())); ?>">Editar</a>
+                    <a href="<?php echo $this->url('book-forms',
+                        array('controller'=>'authors','action'=>'delete','id' => $entity->getId())); ?>">Deletar</a>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+
+    </table>
+    <br />
+
+<?php echo $this->paginationControl($this->data,'Sliding','paginator'); ?>

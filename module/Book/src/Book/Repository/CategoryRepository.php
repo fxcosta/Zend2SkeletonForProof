@@ -4,7 +4,7 @@ namespace Book\Repository;
 
 use Doctrine\ORM\EntityRepository;
 
-class AuthorRepository extends EntityRepository
+class CategoryRepository extends EntityRepository
 {
     public function fetchPairs()
     {

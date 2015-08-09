@@ -93,7 +93,7 @@ abstract class AbstractFx3Controller extends AbstractActionController
     protected function getEm()
     {
         if(null === $this->em)
-            $this->em = $this->getServiceLocator ()->get ('Doctrine\ORM\EntityManager');
+            $this->em = $this->getServiceLocator ()->get('Doctrine\ORM\EntityManager');
 
         return $this->em;
     }

@@ -32,7 +32,7 @@ class BookCategory
     private $bookid;
 
     /**
-     * @var \Book\\Entity\Category
+     * @var \Book\Entity\Category
      *
      * @ORM\ManyToOne(targetEntity="Book\Entity\Category")
      * @ORM\JoinColumns({
@@ -40,6 +40,55 @@ class BookCategory
      * })
      */
     private $categoryid;
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return \Book\
+     */
+    public function getBookid()
+    {
+        return $this->bookid;
+    }
+
+    /**
+     * @param \Book\ $bookid
+     */
+    public function setBookid($bookid)
+    {
+        $this->bookid = $bookid;
+    }
+
+    /**
+     * @return Category
+     */
+    public function getCategoryid()
+    {
+        return $this->categoryid;
+    }
+
+    /**
+     * @param Category $categoryid
+     */
+    public function setCategoryid($categoryid)
+    {
+        $this->categoryid = $categoryid;
+    }
+
 
 
 }

@@ -1,11 +1,11 @@
-<h3>Novo Autor</h3>
+<h3>Editar Autor</h3>
 
 <br />
 
 <?php
     $form = $this->form;
 
-    $form->setAttribute('action', '/book/authors/new');
+    $form->setAttribute('action', $this->url('book-forms', array('controller'=>'authors','action' => 'edit')));
 
     $form->prepare();
     echo $this->form()->openTag($form);
