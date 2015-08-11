@@ -1,0 +1,33 @@
+<h1>Albuns</h1>
+<br />
+
+<p>
+    <a href="<?php echo $this->url('album-actions', array('controller' => 'album','action' => 'new')); ?>">Novo</a>
+</p>
+
+<table class="table">
+    <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Ano</th>
+        <th>Ação</th>
+    </tr>
+
+    <?php foreach($this->data as $mateus): ?>
+        <tr>
+            <td><?php echo $mateus->getId(); ?></td>
+            <td><?php echo $mateus->getName(); ?></td>
+            <td><?php echo date_format($mateus->getYear(), 'Y-m-d'); ?></td>
+            <td>
+                <a href="<?php echo $this->url('album-forms',
+                    array('controller'=>'album','action'=>'edit','id' => $mateus->getId())); ?>">Editar</a>
+                <a href="<?php echo $this->url('album-forms',
+                    array('controller'=>'album','action'=>'delete','id' => $mateus->getId())); ?>">Deletar</a>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+
+</table>
+<br />
+
+<?php echo $this->paginationControl($this->data,'Sliding','paginator'); ?>

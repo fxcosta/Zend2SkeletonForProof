@@ -38,8 +38,8 @@ abstract class AbstractService
     public function update(array $data)
     {
         $entity = $this->em->getReference($this->entity, $data['id']);
+
         $hydrator = new ClassMethods();
-        //$entity = Configurator::configure($entity, $data);
         $entity = $hydrator->hydrate($data, $entity);
 
         $this->em->persist($entity);

@@ -1,0 +1,33 @@
+<h1>Musicas</h1>
+<br />
+
+<p>
+    <a href="<?php echo $this->url('album-actions', array('controller' => 'music','action' => 'new')); ?>">Novo</a>
+</p>
+
+<table class="table">
+    <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Album</th>
+        <th>Ação</th>
+    </tr>
+
+    <?php foreach($this->data as $mateus): ?>
+        <tr>
+            <td><?php echo $mateus->getId(); ?></td>
+            <td><?php echo $mateus->getName(); ?></td>
+            <td><?php echo $mateus->getAlbum()->getName(); ?></td>
+            <td>
+                <a href="<?php echo $this->url('album-forms',
+                    array('controller'=>'music','action'=>'edit','id' => $mateus->getId())); ?>">Editar</a>
+                <a href="<?php echo $this->url('album-forms',
+                    array('controller'=>'music','action'=>'delete','id' => $mateus->getId())); ?>">Deletar</a>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+
+</table>
+<br />
+
+<?php echo $this->paginationControl($this->data,'Sliding','paginator'); ?>

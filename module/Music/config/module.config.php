@@ -7,63 +7,44 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Book;
-
-use Book\Service\Author;
+namespace Music;
 
 return array(
     'controllers' => array(
         'invokables' => array(
-            'book' => 'Book\Controller\BookController',
+            'album' => 'Music\Controller\AlbumController',
+            'music' => 'Music\Controller\MusicController',
         ),
     ),
     'router' => array(
         'routes' => array(
-            'book-forms' => array(
+            'album-forms' => array(
                 'type' => 'Segment',
                 'options' => array(
-                    'route' => '/book/[:controller[/:action]][/:id]',
+                    'route' => '/music/[:controller[/:action]][/:id]',
                     'defaults' => array(
                         'action' => 'index',
                     ),
                 ),
             ),
-            'book-actions' => array(
+            'album-actions' => array(
                 'type' => 'Segment',
                 'options' => array(
-                    'route' => '/book/[:controller[/:action][/page/:page]]',
+                    'route' => '/music/[:controller[/:action][/page/:page]]',
                     'defaults' => array(
                         'action' => 'index',
-                        'controller' => 'book',
+                        'controller' => 'album',
                         'page' => 1
                     ),
                 ),
             ),
-            'book' => array(
+            'music' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
-                    'route'    => '/book',
+                    'route'    => '/music',
                     'defaults' => array(
-/*                        'controller' => 'blog',
-                        'action'     => 'index',*/
                     ),
                 ),
-/*                'may_terminate' => true,
-                'child_routes' => array(
-                    'authors' => array(
-                        'type'    => 'Segment',
-                        'options' => array(
-                            'route'    => '/[:controller[/:action]]',
-                            'constraints' => array(
-                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
-                            ),
-                            'defaults' => array(
-                                'action' => 'index'
-                            ),
-                        ),
-                    ),
-                ),*/
             ),
         ),
     ),
@@ -73,13 +54,7 @@ return array(
             'Zend\Log\LoggerAbstractServiceFactory',
         ),
         'invokables' => array(
-            'TestService' => 'Book\Service\TestService',
         ),
-/*        'factories' => array(
-            'Book\Service\Author' => function($service) {
-                return new Author($service->get('Doctrine\ORM\EntityManager'));
-            },
-        ),*/
     ),
     'translator' => array(
         'locale' => 'en_US',
@@ -99,7 +74,7 @@ return array(
         'exception_template'       => 'error/index',
         'template_map' => array(
             'layout/layout'           => __DIR__ . '/../view/layout/layout.phtml',
-            'book/index/index' => __DIR__ . '/../view/book/index/index.phtml',
+            'music/index/index' => __DIR__ . '/../view/music/index/index.phtml',
             'error/404'               => __DIR__ . '/../view/error/404.phtml',
             'error/index'             => __DIR__ . '/../view/error/index.phtml',
         ),

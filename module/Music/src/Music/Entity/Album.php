@@ -1,23 +1,27 @@
 <?php
 
-namespace Book\Entity;
+namespace Music\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\OneToMany;
 use Zend\Stdlib\Hydrator\ClassMethods;
 
 /**
- * Books
+ * Album
  *
- * @ORM\Table(name="books")
+ * @ORM\Table(name="album")
  * @ORM\Entity
- * @ORM\Entity(repositoryClass="Book\Repository\BookRepository")
+ * @ORM\Entity(repositoryClass="Music\Repository\AlbumRepository")
  */
-class Books
+class Album
 {
     public function __construct($options = null)
     {
-        $hydrator = new ClassMethods(); // jeito certo de usar os getters e setters automaticos do doctrine
+        $hydrator = new ClassMethods();
         $hydrator->hydrate($options, $this);
+        $this->year = new \DateTime();
+        $this->musics = new ArrayCollection();
     }
 
     /**
@@ -32,23 +36,21 @@ class Books
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255, nullable=false)
+     * @ORM\Column(name="name", type="string", length=50, nullable=false)
      */
-    private $name;
+    private $name = '0';
 
     /**
      * @var string
      *
-     * @ORM\Column(name="price", type="string", length=255, nullable=false)
+     * @ORM\Column(name="year", type="datetime", length=50, nullable=false)
      */
-    private $price;
+    private $year;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="ISBN", type="string", length=255, nullable=false)
-     */
-    private $isbn;
+     * @OneToMany(targetEntity="Music\Entity\Music", mappedBy="album")
+     **/
+    private $musics;
 
     /**
      * @return int
@@ -85,42 +87,34 @@ class Books
     /**
      * @return string
      */
-    public function getPrice()
+    public function getYear()
     {
-        return $this->price;
+        return $this->year;
     }
 
     /**
-     * @param string $price
+     * @param string $year
      */
-    public function setPrice($price)
+    public function setYear($year)
     {
-        $this->price = $price;
+        $this->year = new \DateTime($year);
     }
 
     /**
-     * @return string
+     * @return mixed
      */
-    public function getIsbn()
+    public function getMusics()
     {
-        return $this->isbn;
-    }
-
-    /**
-     * @param string $isbn
-     */
-    public function setIsbn($isbn)
-    {
-        $this->isbn = $isbn;
+        return $this->musics;
     }
 
     public function toArray()
     {
         return array('id' => $this->getId(),
             'name' => $this->getName(),
-            'price' => $this->getPrice(),
-            'isbn' => $this->getIsbn()
+            'year' => date_format($this->getYear(), 'Y-m-d'),
         );
     }
+
 }
 

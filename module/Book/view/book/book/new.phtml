@@ -1,0 +1,19 @@
+<h3>Novo Livro</h3>
+
+<br />
+
+<?php
+    $form = $this->form;
+
+    $form->setAttribute('action', '/book/book/new');
+
+    $form->prepare();
+    echo $this->form()->openTag($form);
+    echo $this->formHidden($form->get('id'));
+    echo $this->formRow($form->get('name'));
+    echo $this->formRow($form->get('isbn'));
+    echo $this->formRow($form->get('author'))."<br/>";
+    echo $this->formRow($form->get('price'));
+    echo $this->formSubmit($form->get('submit'));
+    echo $this->form()->closeTag();
+?>

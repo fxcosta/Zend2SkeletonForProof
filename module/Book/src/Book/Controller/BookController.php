@@ -1,32 +1,35 @@
 <?php
 
-namespace Fx3costa\Controller;
+namespace Book\Controller;
 
+use Fx3costa\Controller\AbstractFx3Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Paginator\Adapter\ArrayAdapter;
 use Zend\Paginator\Paginator;
 use Zend\View\Model\ViewModel;
 
-/**
- * Essa classe foi retirada dos projetos públicos do Wesley Willians
- * da Schoof Of Net
- *
- * @package Fx3costa\Controller
- */
-abstract class AbstractFx3Controller extends AbstractActionController
+class BookController extends AbstractFx3Controller
 {
-    protected $em;
-    protected $service;
-    protected $entity;
-    protected $form;
-    protected $route;
-    protected $controller;
+    public function __construct()
+    {
+        $this->entity = "Book\\Entity\\Books";
+        $this->form = "Book\\Form\\Book";
+        $this->service = "Book\\Service\\Book";
+        $this->controller = "book";
+        $this->route = "book-actions";
+    }
 
     public function indexAction()
     {
         $list = $this->getEm()
             ->getRepository($this->entity)
             ->findAll();
+
+/*        foreach($list as $l) {
+            $author = $this->em->getReference("Book\\Entity\\AuthorBook", $data['author']);
+        }*/
+
+        //var_dump($list[0]->getName());exit;
 
         $page = $this->params()->fromRoute('page');
 
@@ -39,7 +42,7 @@ abstract class AbstractFx3Controller extends AbstractActionController
 
     public function newAction()
     {
-        $form = new $this->form();
+        $form = $this->getServiceLocator()->get('Book\Form\Book');
         $request = $this->getRequest();
 
         if($request->isPost()) {
@@ -57,13 +60,13 @@ abstract class AbstractFx3Controller extends AbstractActionController
 
     public function editAction()
     {
-        $form = new $this->form();
+        $form = $this->getServiceLocator()->get('Book\Form\Book');
         $request = $this->getRequest();
 
         $repository = $this->getEm()->getRepository($this->entity);
         $entity = $repository->find($this->params()->fromRoute('id',0));
 
-        if($this->params()->fromRoute('id', 0))
+        if($this->params()->fromRoute('id',0))
             $form->setData($entity->toArray());
 
         if($request->isPost()) {
@@ -74,27 +77,11 @@ abstract class AbstractFx3Controller extends AbstractActionController
                 $service = $this->getServiceLocator()->get($this->service);
                 $service->update($request->getPost()->toArray());
 
-                return $this->redirect()->toRoute($this->route, array('controller' => $this->controller));
+                return $this->redirect()->toRoute($this->route,array('controller'=>$this->controller));
             }
         }
         return new ViewModel(array('form'=>$form));
     }
 
-    public function deleteAction()
-    {
-        $service = $this->getServiceLocator()->get($this->service);
-        if($service->delete($this->params()->fromRoute('id',0)))
-            return $this->redirect()->toRoute($this->route, array('controller' => $this->controller));
-    }
-
-    /**
-     * @return EntityManager
-     */
-    protected function getEm()
-    {
-        if(null === $this->em)
-            $this->em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-
-        return $this->em;
-    }
 }
+

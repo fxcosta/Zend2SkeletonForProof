@@ -1,22 +1,24 @@
 <?php
 
-namespace Book\Entity;
+namespace Music\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\ManyToOne;
 use Zend\Stdlib\Hydrator\ClassMethods;
 
 /**
- * Books
+ * Music
  *
- * @ORM\Table(name="books")
+ * @ORM\Table(name="music")
  * @ORM\Entity
- * @ORM\Entity(repositoryClass="Book\Repository\BookRepository")
+ * @ORM\Entity(repositoryClass="Music\Repository\MusicRepository")
  */
-class Books
+class Music
 {
     public function __construct($options = null)
     {
-        $hydrator = new ClassMethods(); // jeito certo de usar os getters e setters automaticos do doctrine
+        $hydrator = new ClassMethods();
         $hydrator->hydrate($options, $this);
     }
 
@@ -32,23 +34,22 @@ class Books
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255, nullable=false)
+     * @ORM\Column(name="name", type="string", length=50, nullable=false)
      */
-    private $name;
+    private $name = '0';
 
     /**
      * @var string
      *
-     * @ORM\Column(name="price", type="string", length=255, nullable=false)
+     * @ORM\Column(name="duration", type="string", length=50, nullable=false)
      */
-    private $price;
+    private $duration;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="ISBN", type="string", length=255, nullable=false)
-     */
-    private $isbn;
+     * @ManyToOne(targetEntity="Music\Entity\Album", inversedBy="musics")
+     * @JoinColumn(name="albumId", referencedColumnName="id")
+     **/
+    private $album;
 
     /**
      * @return int
@@ -85,42 +86,43 @@ class Books
     /**
      * @return string
      */
-    public function getPrice()
+    public function getDuration()
     {
-        return $this->price;
+        return $this->duration;
     }
 
     /**
-     * @param string $price
+     * @param string $duration
      */
-    public function setPrice($price)
+    public function setDuration($duration)
     {
-        $this->price = $price;
+        $this->duration = $duration;
     }
 
     /**
-     * @return string
+     * @return mixed
      */
-    public function getIsbn()
+    public function getAlbum()
     {
-        return $this->isbn;
+        return $this->album;
     }
 
     /**
-     * @param string $isbn
+     * @param mixed $album
      */
-    public function setIsbn($isbn)
+    public function setAlbum($album)
     {
-        $this->isbn = $isbn;
+        $this->album = $album;
     }
 
     public function toArray()
     {
         return array('id' => $this->getId(),
             'name' => $this->getName(),
-            'price' => $this->getPrice(),
-            'isbn' => $this->getIsbn()
+            'duration' => $this->getDuration(),
+            'album' => $this->getAlbum()->getId(),
         );
     }
+
 }
 
