@@ -40,13 +40,13 @@ class Module
                     return new Album($service->get('Doctrine\ORM\EntityManager'));
                 },
                 'Music\Service\Music' => function($service) {
-                    return new Music($service->get('Doctrine\ORM\EntityManager'));
+                    return new \Music\Service\Music($service->get('Doctrine\ORM\EntityManager'));
                 },
                 'Music\Form\Music' => function($service) {
                     return new Music($service->get('Doctrine\ORM\EntityManager'));
                 },
                 'Music\Service\Band' => function($service) {
-                    return new Band($service->get('Doctrine\ORM\EntityManager'));
+                    return new \Music\Service\Band($service->get('Doctrine\ORM\EntityManager'));
                 },
             ),
         );

@@ -2,6 +2,7 @@
 
 namespace Music\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\ManyToOne;
@@ -21,6 +22,7 @@ class Band
     {
         $hydrator = new ClassMethods();
         $hydrator->hydrate($options, $this);
+        $this->albuns = new ArrayCollection();
     }
 
     /**
@@ -100,7 +102,6 @@ class Band
     {
         return array('id' => $this->getId(),
             'name' => $this->getName(),
-            'album' => $this->getAlbuns()->getId(),
         );
     }
 

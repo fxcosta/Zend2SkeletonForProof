@@ -4,15 +4,14 @@ namespace Music\Form;
 
 use Doctrine\ORM\EntityManager;
 use Zend\Form\Form;
-use Zend\Form\Element\Select;
 
 class Band extends Form
 {
     public $em;
 
-    public function __construct(EntityManager $em)
+    public function __construct()
     {
-        $this->em = $em;
+
 
         parent::__construct('band');
 
@@ -36,21 +35,6 @@ class Band extends Form
                 'id' => 'name',
                 'class' => 'form-control',
                 'placeholder' => 'Insira o nome da Banda'
-            )
-        ));
-
-        $this->add(array(
-            'name' => 'album',
-            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
-            'options' => array(
-                'label' => 'Album',
-                'object_manager' => $this->em,
-                'target_class' => 'Music\Entity\Album',
-                'property' => 'name'
-            ),
-            'attributes' => array(
-                'required' => false,
-                'class' => 'form-control',
             )
         ));
 

@@ -27,7 +27,7 @@ abstract class AbstractService
     
     public function insert(array $data)
     {
-        //var_dump('ta paranto aq');exit;
+       // var_dump($data);exit;
         $entity = new $this->entity($data);
         
         $this->em->persist($entity);
