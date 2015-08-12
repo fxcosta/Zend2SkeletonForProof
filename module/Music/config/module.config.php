@@ -14,6 +14,7 @@ return array(
         'invokables' => array(
             'album' => 'Music\Controller\AlbumController',
             'music' => 'Music\Controller\MusicController',
+            'band' => 'Music\Controller\BandController',
         ),
     ),
     'router' => array(
