@@ -21,6 +21,7 @@ class Band
     {
         $hydrator = new ClassMethods();
         $hydrator->hydrate($options, $this);
+        $this->albuns = new ArrayCollection();
     }
 
     /**

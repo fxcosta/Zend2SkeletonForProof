@@ -126,7 +126,7 @@ class Album
         return array('id' => $this->getId(),
             'name' => $this->getName(),
             'year' => date_format($this->getYear(), 'Y-m-d'),
-            'band' => $this->getBand(),
+            'band' => $this->getBand()->getBandName(),
         );
     }
 
