@@ -1,6 +1,7 @@
 <?php
 namespace Music;
 
+use Music\Entity\Band;
 use Music\Form\Music;
 use Music\Service\Album;
 use Zend\Mvc\ModuleRouteListener;
@@ -39,10 +40,13 @@ class Module
                     return new Album($service->get('Doctrine\ORM\EntityManager'));
                 },
                 'Music\Service\Music' => function($service) {
-                    return new \Music\Service\Music($service->get('Doctrine\ORM\EntityManager'));
+                    return new Music($service->get('Doctrine\ORM\EntityManager'));
                 },
                 'Music\Form\Music' => function($service) {
                     return new Music($service->get('Doctrine\ORM\EntityManager'));
+                },
+                'Music\Service\Band' => function($service) {
+                    return new Band($service->get('Doctrine\ORM\EntityManager'));
                 },
             ),
         );

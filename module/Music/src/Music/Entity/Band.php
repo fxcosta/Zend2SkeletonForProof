@@ -2,28 +2,25 @@
 
 namespace Music\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\OneToMany;
-use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\OneToMany;
 use Zend\Stdlib\Hydrator\ClassMethods;
 
 /**
- * Album
+ * Band
  *
- * @ORM\Table(name="album")
+ * @ORM\Table(name="band")
  * @ORM\Entity
- * @ORM\Entity(repositoryClass="Music\Repository\AlbumRepository")
+ * @ORM\Entity(repositoryClass="Music\Repository\BandRepository")
  */
-class Album
+class Band
 {
     public function __construct($options = null)
     {
         $hydrator = new ClassMethods();
         $hydrator->hydrate($options, $this);
-        $this->year = new \DateTime();
-        $this->musics = new ArrayCollection();
     }
 
     /**
@@ -43,22 +40,25 @@ class Album
     private $name = '0';
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="year", type="datetime", length=50, nullable=false)
+     * @OneToMany(targetEntity="Music\Entity\Album", mappedBy="band")
+     **/
+    private $albuns;
+
+    /**
+     * @return mixed
      */
-    private $year;
+    public function getAlbuns()
+    {
+        return $this->albuns;
+    }
 
     /**
-     * @OneToMany(targetEntity="Music\Entity\Music", mappedBy="album")
-     **/
-    private $musics;
-
-    /**
-     * @ManyToOne(targetEntity="Music\Entity\Band", inversedBy="albuns")
-     * @JoinColumn(name="bandId", referencedColumnName="id")
-     **/
-    private $band;
+     * @param mixed $albuns
+     */
+    public function setAlbuns($albuns)
+    {
+        $this->albuns = $albuns;
+    }
 
     /**
      * @return int
@@ -93,40 +93,14 @@ class Album
     }
 
     /**
-     * @return string
-     */
-    public function getYear()
-    {
-        return $this->year;
-    }
-
-    /**
-     * @param string $year
-     */
-    public function setYear($year)
-    {
-        $this->year = new \DateTime($year);
-    }
-
-    /**
      * @return mixed
      */
-    public function getMusics()
-    {
-        return $this->musics;
-    }
-
-    public function getBand()
-    {
-        return $this->band;
-    }
 
     public function toArray()
     {
         return array('id' => $this->getId(),
             'name' => $this->getName(),
-            'year' => date_format($this->getYear(), 'Y-m-d'),
-            'band' => $this->getBand(),
+            'album' => $this->getAlbuns()->getId(),
         );
     }
 
