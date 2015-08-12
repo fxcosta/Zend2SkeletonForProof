@@ -11,7 +11,6 @@ class BandController extends AbstractFx3Controller
     public function __construct()
     {
         $this->entity = "Music\\Entity\\Band";
-        $this->form = "Music\\Form\\Band";
         $this->service = "Music\\Service\\Band";
         $this->controller = "band";
         $this->route = "album-actions";
