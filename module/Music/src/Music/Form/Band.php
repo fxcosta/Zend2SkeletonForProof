@@ -9,9 +9,9 @@ class Band extends Form
 {
     public $em;
 
-    public function __construct()
+    public function __construct(EntityManager $em)
     {
-
+        $this->em=$em;
 
         parent::__construct('band');
 

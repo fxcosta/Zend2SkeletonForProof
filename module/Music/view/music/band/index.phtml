@@ -17,7 +17,7 @@
         <tr>
             <td><?php echo $mateus->getId(); ?></td>
             <td><?php echo $mateus->getName(); ?></td>
-            <td><?php echo $mateus->getRecords()->getName(); ?></td>
+            <td><?php echo $mateus->getRecords(); ?></td>
             <td>
                 <a href="<?php echo $this->url('album-forms',
                     array('controller'=>'band','action'=>'edit','id' => $mateus->getId())); ?>">Editar</a>
