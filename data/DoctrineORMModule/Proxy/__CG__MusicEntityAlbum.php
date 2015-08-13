@@ -64,10 +64,10 @@ class Album extends \Music\Entity\Album implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', '' . "\0" . 'Music\\Entity\\Album' . "\0" . 'id', '' . "\0" . 'Music\\Entity\\Album' . "\0" . 'name', '' . "\0" . 'Music\\Entity\\Album' . "\0" . 'year', '' . "\0" . 'Music\\Entity\\Album' . "\0" . 'musics');
+            return array('__isInitialized__', '' . "\0" . 'Music\\Entity\\Album' . "\0" . 'id', '' . "\0" . 'Music\\Entity\\Album' . "\0" . 'name', '' . "\0" . 'Music\\Entity\\Album' . "\0" . 'year', '' . "\0" . 'Music\\Entity\\Album' . "\0" . 'musics', '' . "\0" . 'Music\\Entity\\Album' . "\0" . 'band');
         }
 
-        return array('__isInitialized__', '' . "\0" . 'Music\\Entity\\Album' . "\0" . 'id', '' . "\0" . 'Music\\Entity\\Album' . "\0" . 'name', '' . "\0" . 'Music\\Entity\\Album' . "\0" . 'year', '' . "\0" . 'Music\\Entity\\Album' . "\0" . 'musics');
+        return array('__isInitialized__', '' . "\0" . 'Music\\Entity\\Album' . "\0" . 'id', '' . "\0" . 'Music\\Entity\\Album' . "\0" . 'name', '' . "\0" . 'Music\\Entity\\Album' . "\0" . 'year', '' . "\0" . 'Music\\Entity\\Album' . "\0" . 'musics', '' . "\0" . 'Music\\Entity\\Album' . "\0" . 'band');
     }
 
     /**
@@ -252,6 +252,17 @@ class Album extends \Music\Entity\Album implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getMusics', array());
 
         return parent::getMusics();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getBand()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getBand', array());
+
+        return parent::getBand();
     }
 
     /**

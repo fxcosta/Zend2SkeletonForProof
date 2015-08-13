@@ -11,6 +11,7 @@
     echo $this->form()->openTag($form);
         echo $this->formHidden($form->get('id'));
         echo $this->formRow($form->get('name'));
+        echo $this->formRow($form->get('records'))."<br/>";
         echo $this->formSubmit($form->get('submit'));
     echo $this->form()->closeTag();
 ?>

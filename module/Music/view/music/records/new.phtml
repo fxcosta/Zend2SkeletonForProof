@@ -1,17 +1,16 @@
-<h3>Nova Banda</h3>
+<h3>Nova Gravadora</h3>
 
 <br />
 
 <?php
     $form = $this->form;
 
-    $form->setAttribute('action', '/music/band/new');
+    $form->setAttribute('action', '/music/records/new');
 
     $form->prepare();
-    echo $this->form()->openTag($form);
+        echo $this->form()->openTag($form);
         echo $this->formHidden($form->get('id'));
         echo $this->formRow($form->get('name'));
-        echo $this->formRow($form->get('records'))."<br/>";
         echo $this->formSubmit($form->get('submit'));
     echo $this->form()->closeTag();
 ?>
