@@ -11,8 +11,6 @@ class Band extends Form
 
     public function __construct()
     {
-
-
         parent::__construct('band');
 
         $this->setAttribute('method', 'post');
