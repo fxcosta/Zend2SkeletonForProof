@@ -51,6 +51,9 @@ class Module
                 'Music\Service\Records' => function($service) {
                     return new \Music\Service\Records($service->get('Doctrine\ORM\EntityManager'));
                 },
+                'Music\Form\Band' => function($service) {
+                    return new \Music\Form\Band($service->get('Doctrine\ORM\EntityManager'));
+                },
             ),
         );
     }
