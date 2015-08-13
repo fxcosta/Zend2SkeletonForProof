@@ -12,12 +12,12 @@
         <th>Gravadora</th>
         <th>Ação</th>
     </tr>
-
+    <?php //var_dump($this->data);exit; ?>
     <?php foreach($this->data as $mateus): ?>
         <tr>
             <td><?php echo $mateus->getId(); ?></td>
             <td><?php echo $mateus->getName(); ?></td>
-            <td><?php echo $mateus->getRecords(); ?></td>
+            <td><?php echo $mateus->getRecords()->getName(); ?></td>
             <td>
                 <a href="<?php echo $this->url('album-forms',
                     array('controller'=>'band','action'=>'edit','id' => $mateus->getId())); ?>">Editar</a>

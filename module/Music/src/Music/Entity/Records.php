@@ -103,8 +103,8 @@ class Records
     public function toArray()
     {
         return array(
-            'id'=>$this->getId(),
-            'name'=>$this->getName(),
+            'id' => $this->getId(),
+            'name' => $this->getName(),
             //'band'=>$this->getBands()->getBandName(),
         );
     }
