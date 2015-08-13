@@ -21,6 +21,8 @@
                     array('controller'=>'records','action'=>'edit','id' => $mateus->getId())); ?>">Editar</a>
                 <a href="<?php echo $this->url('album-forms',
                     array('controller'=>'records','action'=>'delete','id' => $mateus->getId())); ?>">Deletar</a>
+                <a href="<?php echo $this->url('album-forms',
+                    array('controller'=>'band','action'=>'record-bands','id' => $mateus->getId())); ?>">Bandas</a>
             </td>
         </tr>
     <?php endforeach; ?>

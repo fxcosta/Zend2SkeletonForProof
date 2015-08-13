@@ -60,5 +60,23 @@ class BandController extends AbstractFx3Controller
         return new ViewModel(array('form'=>$form));
     }
 
+    public function recordBandsAction()
+    {
+        $recordId = $this->params()->fromRoute('id', 0);
+        var_dump($recordId);
+
+/*        $list = $this->getEm()
+            ->getRepository($this->entity)
+            ->findAll();
+
+        $page = $this->params()->fromRoute('page');
+
+        $paginator = new Paginator(new ArrayAdapter($list));
+        $paginator->setCurrentPageNumber($page)
+            ->setDefaultItemCountPerPage(10);
+
+        return new ViewModel(array('data' => $paginator, 'page' => $page));*/
+    }
+
 }
 
