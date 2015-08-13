@@ -1,28 +1,34 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: Mateus
+ * Date: 12/08/2015
+ * Time: 20:10
+ */
 
 namespace Music\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\JoinColumn;
-use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\OneToMany;
+use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\JoinColumn;
 use Zend\Stdlib\Hydrator\ClassMethods;
 
 /**
- * Band
+ * Records
  *
- * @ORM\Table(name="band")
+ * @ORM\Table(name="records")
  * @ORM\Entity
- * @ORM\Entity(repositoryClass="Music\Repository\BandRepository")
+ * @ORM\Entity(repositoryClass="Music\Repository\RecordsRepository")
  */
-class Band
+class Records
 {
     public function __construct($options = null)
     {
         $hydrator = new ClassMethods();
         $hydrator->hydrate($options, $this);
-        $this->albuns = new ArrayCollection();
+        $this->bands = new ArrayCollection();
     }
 
     /**
@@ -42,30 +48,24 @@ class Band
     private $name = '0';
 
     /**
-     * @OneToMany(targetEntity="Music\Entity\Album", mappedBy="band")
+     * @OneToMany(targetEntity="Music\Entity\Band", mappedBy="records")
      **/
-    private $albuns;
-
-    /**
-     * @ManyToOne(targetEntity="Music\Entity\Records", inversedBy="bands")
-     * @JoinColumn(name="recordsId", referencedColumnName="id")
-     **/
-    private $records;
+    private $bands;
 
     /**
      * @return mixed
      */
-    public function getAlbuns()
+    public function getBands()
     {
-        return $this->albuns;
+        return $this->bands;
     }
 
     /**
-     * @param mixed $albuns
+     * @param mixed $bands
      */
-    public function setAlbuns($albuns)
+    public function setBands($bands)
     {
-        $this->albuns = $albuns;
+        $this->bands = $bands;
     }
 
     /**
@@ -100,33 +100,12 @@ class Band
         $this->name = $name;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getRecords()
-    {
-        return $this->records;
-    }
-
-    /**
-     * @param mixed $records
-     */
-    public function setRecords($records)
-    {
-        $this->records = $records;
-    }
-
-    /**
-     * @return mixed
-     */
-
     public function toArray()
     {
-        return array('id' => $this->getId(),
-            'name' => $this->getName(),
-            'records' => $this->getRecords()->getId(),
+        return array(
+            'id'=>$this->getId(),
+            'name'=>$this->getName(),
+            //'band'=>$this->getBands()->getBandName(),
         );
     }
-
-}
-
+} 

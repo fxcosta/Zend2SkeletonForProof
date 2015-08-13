@@ -15,6 +15,7 @@ return array(
             'album' => 'Music\Controller\AlbumController',
             'music' => 'Music\Controller\MusicController',
             'band' => 'Music\Controller\BandController',
+            'records' => 'Music\Controller\RecordsController',
         ),
     ),
     'router' => array(

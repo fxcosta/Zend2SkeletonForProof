@@ -39,6 +39,21 @@ class Band extends Form
         ));
 
         $this->add(array(
+            'name' => 'records',
+            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+            'options' => array(
+                'label' => 'Records',
+                'object_manager' => $this->em,
+                'target_class' => 'Music\Entity\Records',
+                'property' => 'name'
+            ),
+            'attributes' => array(
+                'required' => false,
+                'class' => 'form-control',
+            )
+        ));
+
+        $this->add(array(
             'name' => 'submit',
             'type' => 'Zend\Form\Element\Submit',
             'attributes' => array(

@@ -1,15 +1,14 @@
-<h1>Bandas</h1>
+<h1>Gravadoras</h1>
 <br />
 
 <p>
-    <a href="<?php echo $this->url('album-actions', array('controller' => 'band','action' => 'new')); ?>">Nova</a>
+    <a href="<?php echo $this->url('album-actions', array('controller' => 'records','action' => 'new')); ?>">Novo</a>
 </p>
 
 <table class="table">
     <tr>
         <th>ID</th>
         <th>Nome</th>
-        <th>Gravadora</th>
         <th>Ação</th>
     </tr>
 
@@ -17,12 +16,11 @@
         <tr>
             <td><?php echo $mateus->getId(); ?></td>
             <td><?php echo $mateus->getName(); ?></td>
-            <td><?php echo $mateus->getRecords()->getName(); ?></td>
             <td>
                 <a href="<?php echo $this->url('album-forms',
-                    array('controller'=>'band','action'=>'edit','id' => $mateus->getId())); ?>">Editar</a>
+                    array('controller'=>'records','action'=>'edit','id' => $mateus->getId())); ?>">Editar</a>
                 <a href="<?php echo $this->url('album-forms',
-                    array('controller'=>'band','action'=>'delete','id' => $mateus->getId())); ?>">Deletar</a>
+                    array('controller'=>'records','action'=>'delete','id' => $mateus->getId())); ?>">Deletar</a>
             </td>
         </tr>
     <?php endforeach; ?>
