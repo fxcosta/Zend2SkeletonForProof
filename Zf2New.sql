@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
 -- Servidor:                     127.0.0.1
--- Versão do servidor:           5.6.25 - MySQL Community Server (GPL)
+-- Versão do servidor:           5.6.24 - MySQL Community Server (GPL)
 -- OS do Servidor:               Win32
--- HeidiSQL Versão:              9.1.0.4867
+-- HeidiSQL Versão:              9.2.0.4947
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -20,14 +20,18 @@ CREATE TABLE IF NOT EXISTS `album` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL DEFAULT '0',
   `year` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+  `bandId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_album_band` (`bandId`),
+  CONSTRAINT `FK_album_band` FOREIGN KEY (`bandId`) REFERENCES `band` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela zf2new.album: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela zf2new.album: ~3 rows (aproximadamente)
 /*!40000 ALTER TABLE `album` DISABLE KEYS */;
-INSERT INTO `album` (`id`, `name`, `year`) VALUES
-	(1, 'Mateus Das Zika da Porra Toda', '2015-05-12 00:00:00'),
-	(2, 'Like a Prayer', '2015-12-12 00:00:00');
+REPLACE INTO `album` (`id`, `name`, `year`, `bandId`) VALUES
+	(1, 'Mateus Das Zika da Porra Toda', '2015-05-12 00:00:00', 1),
+	(2, 'Like a Prayer', '2015-12-12 00:00:00', 2),
+	(4, 'Toxicit', '2015-08-12 00:00:00', 2);
 /*!40000 ALTER TABLE `album` ENABLE KEYS */;
 
 
@@ -41,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `author` (
 
 -- Copiando dados para a tabela zf2new.author: ~7 rows (aproximadamente)
 /*!40000 ALTER TABLE `author` DISABLE KEYS */;
-INSERT INTO `author` (`id`, `name`, `email`) VALUES
+REPLACE INTO `author` (`id`, `name`, `email`) VALUES
 	(1, 'Felix Costa', 'fx3costa@gmail.com'),
 	(2, 'Mateus Sousa', 'mateus@gmail.com'),
 	(3, 'Jhannifer', 'jhannifer@gmail.com'),
@@ -64,13 +68,32 @@ CREATE TABLE IF NOT EXISTS `author_book` (
   CONSTRAINT `FK__books` FOREIGN KEY (`bookId`) REFERENCES `books` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela zf2new.author_book: ~2 rows (aproximadamente)
+-- Copiando dados para a tabela zf2new.author_book: ~3 rows (aproximadamente)
 /*!40000 ALTER TABLE `author_book` DISABLE KEYS */;
-INSERT INTO `author_book` (`id`, `bookId`, `authorId`) VALUES
+REPLACE INTO `author_book` (`id`, `bookId`, `authorId`) VALUES
 	(1, 9, 2),
 	(2, 11, 3),
 	(3, 12, 12);
 /*!40000 ALTER TABLE `author_book` ENABLE KEYS */;
+
+
+-- Copiando estrutura para tabela zf2new.band
+CREATE TABLE IF NOT EXISTS `band` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `recordsId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `recordsId` (`recordsId`),
+  CONSTRAINT `FK_band_records` FOREIGN KEY (`recordsId`) REFERENCES `records` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+-- Copiando dados para a tabela zf2new.band: ~2 rows (aproximadamente)
+/*!40000 ALTER TABLE `band` DISABLE KEYS */;
+REPLACE INTO `band` (`id`, `name`, `recordsId`) VALUES
+	(1, 'System Of a Down', NULL),
+	(2, 'Rush', NULL),
+	(3, 'lauro de freitas', 1);
+/*!40000 ALTER TABLE `band` ENABLE KEYS */;
 
 
 -- Copiando estrutura para tabela zf2new.books
@@ -82,9 +105,9 @@ CREATE TABLE IF NOT EXISTS `books` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela zf2new.books: ~5 rows (aproximadamente)
+-- Copiando dados para a tabela zf2new.books: ~6 rows (aproximadamente)
 /*!40000 ALTER TABLE `books` DISABLE KEYS */;
-INSERT INTO `books` (`id`, `name`, `price`, `ISBN`) VALUES
+REPLACE INTO `books` (`id`, `name`, `price`, `ISBN`) VALUES
 	(1, 'Livro11111', '323,32', '3232'),
 	(2, 'dsad', 'dsadsa', 'dsadsa'),
 	(9, 'Usando filters', '323232', '23232'),
@@ -120,7 +143,7 @@ CREATE TABLE IF NOT EXISTS `category` (
 
 -- Copiando dados para a tabela zf2new.category: ~2 rows (aproximadamente)
 /*!40000 ALTER TABLE `category` DISABLE KEYS */;
-INSERT INTO `category` (`id`, `description`) VALUES
+REPLACE INTO `category` (`id`, `description`) VALUES
 	(1, 'Suspense'),
 	(2, 'Comédia');
 /*!40000 ALTER TABLE `category` ENABLE KEYS */;
@@ -139,9 +162,25 @@ CREATE TABLE IF NOT EXISTS `music` (
 
 -- Copiando dados para a tabela zf2new.music: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `music` DISABLE KEYS */;
-INSERT INTO `music` (`id`, `name`, `duration`, `albumId`) VALUES
+REPLACE INTO `music` (`id`, `name`, `duration`, `albumId`) VALUES
 	(1, 'Pepeca do Mal', '3232', 2);
 /*!40000 ALTER TABLE `music` ENABLE KEYS */;
+
+
+-- Copiando estrutura para tabela zf2new.records
+CREATE TABLE IF NOT EXISTS `records` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+-- Copiando dados para a tabela zf2new.records: ~3 rows (aproximadamente)
+/*!40000 ALTER TABLE `records` DISABLE KEYS */;
+REPLACE INTO `records` (`id`, `name`) VALUES
+	(1, 'Protocol Records'),
+	(2, 'Westside Records'),
+	(4, 'Som Livre');
+/*!40000 ALTER TABLE `records` ENABLE KEYS */;
 
 
 -- Copiando estrutura para tabela zf2new.users
