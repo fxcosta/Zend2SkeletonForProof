@@ -4,6 +4,8 @@ namespace Music\Controller;
 
 use Fx3costa\Controller\AbstractFx3Controller;
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\Paginator\Adapter\ArrayAdapter;
+use Zend\Paginator\Paginator;
 use Zend\View\Model\ViewModel;
 
 class BandController extends AbstractFx3Controller
@@ -60,14 +62,19 @@ class BandController extends AbstractFx3Controller
         return new ViewModel(array('form'=>$form));
     }
 
+    /**
+     * Primeira forma de se exibir todas as bandas de uma categoria.
+     * Com essa forma, pegamos as bandas que tem um recordid igual ao que
+     * foi obtido pela rota. Essa forma funciona bem, porém, há uma segunda
+     * forma que pode ser encontrada em RecordsController
+     *
+     * @return ViewModel
+     */
     public function recordBandsAction()
     {
+        $repository = $this->getEm()->getRepository($this->entity);
         $recordId = $this->params()->fromRoute('id', 0);
-        var_dump($recordId);
-
-/*        $list = $this->getEm()
-            ->getRepository($this->entity)
-            ->findAll();
+        $list = $repository->findBy(['records' => $recordId]);
 
         $page = $this->params()->fromRoute('page');
 
@@ -75,7 +82,7 @@ class BandController extends AbstractFx3Controller
         $paginator->setCurrentPageNumber($page)
             ->setDefaultItemCountPerPage(10);
 
-        return new ViewModel(array('data' => $paginator, 'page' => $page));*/
+        return new ViewModel(array('data' => $paginator, 'page' => $page));
     }
 
 }

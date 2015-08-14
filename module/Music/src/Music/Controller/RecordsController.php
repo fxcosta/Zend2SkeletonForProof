@@ -9,6 +9,9 @@
 namespace Music\Controller;
 
 use Fx3costa\Controller\AbstractFx3Controller;
+use Zend\Paginator\Adapter\ArrayAdapter;
+use Zend\Paginator\Paginator;
+use Zend\View\Model\ViewModel;
 
 class RecordsController extends AbstractFx3Controller
 {
@@ -21,8 +24,25 @@ class RecordsController extends AbstractFx3Controller
         $this->route="album-actions";
     }
 
-    public function playAction()
+    /**
+     * Segunda forma de exibir as bandas de uma Gravadora
+     * Com esse metodo, usamos o nosso atributo bands que é exatamente
+     * um ArrayCollection e que armazena todas as bandas da gravadora.
+     * Acredito que seja a forma mais correta de se trabalhar com esse tipo de problema
+     *
+     * @return ViewModel
+     */
+    public function recordBandsAction()
     {
+        $recordId = $this->params()->fromRoute('id', 0);
+        $records = $this->getEm()->getReference($this->entity, $recordId);
 
+        $page = $this->params()->fromRoute('page');
+
+        $paginator = new Paginator(new ArrayAdapter($records->getBands()->toArray()));
+        $paginator->setCurrentPageNumber($page)
+            ->setDefaultItemCountPerPage(10);
+
+        return new ViewModel(array('data' => $paginator, 'page' => $page));
     }
 } 
