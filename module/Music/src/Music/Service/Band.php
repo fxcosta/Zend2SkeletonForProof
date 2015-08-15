@@ -43,8 +43,6 @@ class Band extends AbstractService
         $records = $this->em->getReference("Music\\Entity\\Records", $data['records']);
         $entity->setRecords($records);
 
-        $records->bands->add($entity);
-
         $this->em->persist($entity);
         $this->em->flush();
 

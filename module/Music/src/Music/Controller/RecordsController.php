@@ -9,8 +9,10 @@
 namespace Music\Controller;
 
 use Fx3costa\Controller\AbstractFx3Controller;
+use Zend\Json\Json;
 use Zend\Paginator\Adapter\ArrayAdapter;
 use Zend\Paginator\Paginator;
+use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
 
 class RecordsController extends AbstractFx3Controller
@@ -22,6 +24,12 @@ class RecordsController extends AbstractFx3Controller
         $this->service="Music\\Service\\Records";
         $this->controller="records";
         $this->route="album-actions";
+    }
+
+    public function jsonAction()
+    {
+        $array = ['bar' => 'foo', 'mez' => 'tor'];
+        return new JsonModel(['data' => $array]);
     }
 
     /**
